@@ -2,7 +2,11 @@ import { useState } from "react";
 import classes from "./SideButtons.module.css";
 
 const SideButtons = (props) => {
+<<<<<<< Updated upstream
   const [isButton1, setIsButton1] = useState(true);
+=======
+  const [isButton1, setIsButton1] = useState(props.isButton1);
+>>>>>>> Stashed changes
 
   const onClickBtn1 = () => {
     setIsButton1(true);

@@ -121,6 +121,8 @@ function App() {
         <Route path="/minhasajudas" render={() => <MyHelps />} />
         <Route path="/todasajudas" render={() => <TodasAjudas />} />
         <Route path="/novopedido" render={() => <Help />} />
+
+          <Route path="/todasajudas" render={() => <TodasAjudas />} />
         <Route exact path="/ajudas" render={() => <ListHelps />} />
         <Route
           path="/ajudas/pedidos/:pedidoId"
