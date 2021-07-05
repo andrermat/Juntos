@@ -169,8 +169,8 @@ const Help = () => {
     const formInfo = {
       title: enteredTitle,
       description: enteredDescription,
-      lat: point[0].latitude,
-      lon: point[0].longitude,
+      lat: point[0].lat,
+      lon: point[0].lon,
       owner: ownerEmail,
       pathId: null,
       difficulty: "1",

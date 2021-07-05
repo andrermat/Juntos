@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Map, { Point } from "../Map/Map";
+import React, { useCallback, useState } from "react";
+import Map, {Point} from "../Map/Map";
 
 function Percurso() {
   const [point, setPoint] = useState<Point[]>([]);
@@ -9,6 +9,7 @@ function Percurso() {
     },
     [point]
   );
+
   return (
     <div>
       <Map points={point} callback={pointsCallback} />

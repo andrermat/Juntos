@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useCallback } from "react";
-import Map, { Point } from "../Map/Map";
+import Map, {Point} from "../Map/Map";
 
 function Ajuda() {
   const [point, setPoint] = useState<Point>();
@@ -10,12 +10,14 @@ function Ajuda() {
     },
     [point]
   );
+
   return (
     <div>
       <Map
         unique
         points={point === undefined ? [] : [point]}
         callback={pointsCallback}
+
       />
     </div>
   );

@@ -68,7 +68,7 @@ const Login = (props) => {
         localStorage.setItem("token", token);
         props.onCloseModal();
       },
-      (error) => {
+      (error) => {/*
         props.setIsLoading(false);
         if (error.status === 400) {
           setError("Credenciais Inválidas")
@@ -79,8 +79,9 @@ const Login = (props) => {
         } else {
           setError("Algo Inesperado aconteceu, tente novamente");
         }
-      }
+     */ }
     );
+
   };
 
   const spinner = (

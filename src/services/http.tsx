@@ -112,6 +112,17 @@ export async function markerPage() {
   }
 }
 
+export async function getMarkers(centerLat: number, centerLon:number, radius:number) {
+  try {
+    return await axios.get(`${url}/rest/marker/area`, {params: {
+      centerLat: centerLat,
+      centerLon: centerLon,
+      radius: radius}});
+  } catch (error) {
+    throw error.response;
+  }
+}
+
 /*//ir ao store fazer dispatch de logout e apagar local storage
 //dentro de use effect do app -> redux tb nao ha -> /home
 //= a estar a verificar */

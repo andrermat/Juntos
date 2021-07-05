@@ -26,6 +26,7 @@ import Conversation from "./components/Chat/Conversation";
 import { authActions } from "./store/session/auth";
 import { getUser } from "./services/http";
 import classes from "./App.module.css";
+import TodasAjudas from "./components/MapComponents/TodasAjudas";
 
 function App() {
   const dispatch = useDispatch();
@@ -118,6 +119,7 @@ function App() {
         <Route path="/alterarpassword" render={() => <ChangePassword />} />
         <Route path="/app" render={() => <AppPage />} />
         <Route path="/minhasajudas" render={() => <MyHelps />} />
+        <Route path="/todasajudas" render={() => <TodasAjudas />} />
         <Route path="/novopedido" render={() => <Help />} />
         <Route exact path="/ajudas" render={() => <ListHelps />} />
         <Route

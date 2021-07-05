@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import SearchBar from "../UI/SearchBar";
-import SideButtons from "../UI/SideButtons";
 import classes from "./MyHelp.module.css";
 import { markerPage } from "../../services/http";
 import { useSelector } from "react-redux";
+// @ts-ignore
+import SideButtons from "../UI/SideButtons";
 
 const MyHelps = () => {
   const [search, setSearch] = useState("");
