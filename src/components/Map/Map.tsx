@@ -31,22 +31,18 @@ interface MapProps {
     noRoute?: boolean
     callback: (points: Point[]) => void;
     callbackC?: (center: Center) => void;
+    callbackZ?: (zoom: number) => void;
     points: Point[];
+    center: Center;
+    zoom: number
 }
 
 
 function Map(props: MapProps) {
-    const {isLoaded} = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyA_e5nkxWCBpZ3xHTuUIpjGzksaqLKSGrU"
-    })
-
-    const mapRef = useRef(null);
+    const mapRef = useRef<any>(null);
     const [points, setPoints] = useState<Point[]>(props.points)
-    const [center, setCenter] = useState<Center>({
-        lat: 38.7071,
-        lng: -9.13549
-    })
+    const [center, setCenter] = useState<Center>(props.center)
+    const [zoom, setZoom] = useState<number>(props.zoom)
     const [open, setOpen] = useState<infoOpen>({
         index: 0,
         openIn: false
@@ -63,16 +59,15 @@ function Map(props: MapProps) {
                 props.callback([{lat: ev.latLng.lat(), lon: ev.latLng.lng()}]);
             }
     }
-    function handleCenterChanged() {
-        if (mapRef.current !== null && mapRef !== null && props.callbackC)
-        {
-            // @ts-ignore
-            if(Math.abs(mapRef.current.getCenter().toJSON().lat - center.lat) > 0.4 || Math.abs(mapRef.current.getCenter().toJSON().lng - center.lng) > 0.4)
-                { // @ts-ignore
+    const handleCenterChanged = () =>{
+        if (mapRef.current !== null && props.callbackC)
+            if(Math.abs(mapRef.current.getCenter().toJSON().lat - center.lat) > 0.4
+                || Math.abs(mapRef.current.getCenter().toJSON().lng - center.lng) > 0.4)
                     props.callbackC({lat: mapRef.current.getCenter().toJSON().lat, lng: mapRef.current.getCenter().toJSON().lng})
-
-                }
-        }
+    }
+    const handleZoomChanged  = () => {
+        if(mapRef.current !== null && props.callbackZ)
+            props.callbackZ(mapRef.current.getZoom())
     }
 
 
@@ -88,9 +83,11 @@ function Map(props: MapProps) {
     }, [props.points])
 
     useEffect(() => {
-        if(props.callbackC)
-            props.callbackC(center)
-    }, [center])
+        setCenter(props.center)
+    }, [props.center])
+    useEffect(() => {
+        setZoom(props.zoom)
+    }, [props.zoom])
 
     const wayPoints = () => {
         let waypoints = []
@@ -121,7 +118,7 @@ function Map(props: MapProps) {
         mapRef.current = map;
     }
 
-    return isLoaded ? (
+    return (
         <div>
             <Autocomplete
                 apiKey="AIzaSyA_e5nkxWCBpZ3xHTuUIpjGzksaqLKSGrU"
@@ -136,10 +133,11 @@ function Map(props: MapProps) {
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
-                zoom={10}
+                zoom={zoom}
                 onLoad={handleLoad}
                 onClick={onClick}
                 onCenterChanged={handleCenterChanged}
+                onZoomChanged={handleZoomChanged}
             >   {directions !== null &&
             <DirectionsRenderer directions={directions}/>
             }
@@ -171,7 +169,7 @@ function Map(props: MapProps) {
             </GoogleMap>
         </div>
 
-    ) : <></>
+    )
 }
 
 /*
